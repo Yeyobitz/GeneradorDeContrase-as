@@ -46,9 +46,11 @@ def guardar_contraseña(contraseña):
         print(f"Error al guardar la contraseña: {str(e)}")
 
 def main():
-    print("""#############################
+    print("""
+#############################
 # Yeyo's Password Generator #
-#############################""")
+#############################
+""")
     while True:
         try:
             longitud = input('Longitud de la contraseña: ')
