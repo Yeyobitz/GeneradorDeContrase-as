@@ -57,23 +57,62 @@ def main():
             while not longitud.isdigit() or int(longitud) <= 0 or int(longitud) > 100:
                 print("La longitud de la contraseña debe ser un número mayor a cero y menor o igual a 100.")
                 longitud = input('Longitud de la contraseña: ')
-            longitud = int(longitud) 
-            incluir_mayusculas = input('¿Incluir mayúsculas? (s/n): ').lower() == 's'
-            incluir_minusculas = input('¿Incluir minúsculas? (s/n): ').lower() == 's'
-            incluir_numeros = input('¿Incluir números? (s/n): ').lower() == 's'
-            incluir_simbolos = input('¿Incluir símbolos? (s/n): ').lower() == 's'
+            longitud = int(longitud)
+            
+            incluir_mayusculas = ''
+            while incluir_mayusculas != 's' and incluir_mayusculas != 'n':
+                incluir_mayusculas = input('¿Incluir mayúsculas? (s/n): ').lower()
+            
+            incluir_minusculas = ''
+            while incluir_minusculas != 's' and incluir_minusculas != 'n':
+                incluir_minusculas = input('¿Incluir minúsculas? (s/n): ').lower()
+            
+            incluir_numeros = ''
+            while incluir_numeros != 's' and incluir_numeros != 'n':
+                incluir_numeros = input('¿Incluir números? (s/n): ').lower()
+            
+            incluir_simbolos = ''
+            while incluir_simbolos != 's' and incluir_simbolos != 'n':
+                incluir_simbolos = input('¿Incluir símbolos? (s/n): ').lower() 
+                
+            if incluir_mayusculas == 'n' and incluir_minusculas == 'n' and incluir_numeros == 'n' and incluir_simbolos == 'n':
+                print("Debe seleccionar al menos un conjunto de caracteres.")
+                continue
+            
+            if incluir_mayusculas == 's':
+                incluir_mayusculas = True
+            else:
+                incluir_mayusculas = False
+                
+            if incluir_minusculas == 's':
+                incluir_minusculas = True
+            else:
+                incluir_minusculas = False
+            
+            if incluir_numeros == 's':
+                incluir_numeros = True
+            else:
+                incluir_numeros = False
+                
+            if incluir_simbolos == 's':
+                incluir_simbolos = True
+            else:
+                incluir_simbolos = False
 
 
             contraseña = generar_contraseña(longitud, incluir_mayusculas, incluir_minusculas, incluir_numeros, incluir_simbolos)
             print(f'Contraseña generada: {contraseña}')
 
-            guardar = input("¿Deseas guardar la contraseña generada? (s/n): ").lower() == 's'
-
-            if guardar:
+            guardar = ''
+            while guardar != 's' and guardar != 'n':
+                guardar = input("¿Deseas guardar la contraseña generada? (s/n): ").lower()
+            if guardar == 's':
                 guardar_contraseña(contraseña)
                 
-            continuar = input("¿Deseas generar otra contraseña? (s/n): ").lower() == 's'
-            if not continuar:
+            continuar = ''
+            while continuar != 's' and continuar != 'n':
+                continuar = input("¿Deseas generar otra contraseña? (s/n): ").lower()
+            if continuar == 'n':
                 print("Bye bye!")
                 break
 
