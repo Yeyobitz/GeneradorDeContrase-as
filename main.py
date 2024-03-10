@@ -5,6 +5,9 @@
 import random
 import string
 import datetime
+import pandas as pd
+import os
+
 
 def generar_contraseña(longitud, incluir_mayusculas, incluir_minusculas, incluir_numeros, incluir_simbolos):
     try:
@@ -39,11 +42,18 @@ def guardar_contraseña(contraseña):
     try:
         ahora = datetime.datetime.now()
         fecha_hora = ahora.strftime("%Y-%m-%d %H:%M:%S")
-        with open("contraseñas_guardadas.txt", "a") as archivo:
-            archivo.write(f"{fecha_hora} - {contraseña}\n")
+        nombre = input("Nombre para la contraseña: ")
+        data = {'FECHA': [fecha_hora], 'NOMBRE CONTRASEÑA': [nombre], 'CONTRASEÑA': [contraseña]}
+        df = pd.DataFrame(data)
+        if os.path.isfile('contraseñas_guardadas.xlsx'):
+            with pd.ExcelWriter('contraseñas_guardadas.xlsx', engine='openpyxl', mode='a') as writer:
+                df.to_excel(writer, index=False, header=False)
+        else:
+            df.to_excel('contraseñas_guardadas.xlsx', index=False)
         print("Contraseña guardada con éxito. Viva! Viva! Viva!")
     except Exception as e:
-        print(f"Error al guardar la contraseña: {str(e)}")
+        print(f"Error al guardar la contraseña: {str(e)}")     
+
 
 def main():
     print("""
